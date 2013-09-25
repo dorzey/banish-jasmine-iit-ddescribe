@@ -4,35 +4,8 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        // Metadata.
-        pkg: grunt.file.readJSON('banish-jasmine-iit-ddescribe.json'),
-        banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-            '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-            ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
-        // Task configuration.
         clean: {
             files: ['dist']
-        },
-        concat: {
-            options: {
-                banner: '<%= banner %>',
-                stripBanners: true
-            },
-            dist: {
-                src: ['src/<%= pkg.name %>.js'],
-                dest: 'dist/<%= pkg.name %>.js'
-            }
-        },
-        uglify: {
-            options: {
-                banner: '<%= banner %>'
-            },
-            dist: {
-                src: '<%= concat.dist.dest %>',
-                dest: 'dist/<%= pkg.name %>.min.js'
-            }
         },
         jshint: {
             gruntfile: {
@@ -54,26 +27,29 @@ module.exports = function (grunt) {
                 src: ['test/**/*.js']
             }
         },
-        watch: {
-            gruntfile: {
-                files: '<%= jshint.gruntfile.src %>',
-                tasks: ['jshint:gruntfile']
-            },
-            src: {
-                files: '<%= jshint.src.src %>',
-                tasks: ['jshint:src', 'qunit']
-            }
+
+        'banish-iit-ddescribe': {
+            src: ['./jasmine-tests/**/*.js']
+        },
+
+        // Unit tests.
+        nodeunit: {
+            tests: ['test/*_test.js']
         }
     });
 
+    grunt.loadTasks('tasks');
+
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-nodeunit');
+
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.loadTasks('tasks');
+    // Whenever the "test" task is run, first clean the "tmp" dir, then run this
+    // plugin's task(s), then test the result.
+    grunt.registerTask('test', ['clean', 'banish-iit-ddescribe', 'nodeunit']);
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
