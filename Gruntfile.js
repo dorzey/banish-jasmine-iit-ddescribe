@@ -29,7 +29,12 @@ module.exports = function (grunt) {
         },
 
         'banish-iit-ddescribe': {
-            src: ['./jasmine-tests/**/*.js']
+            default_options: {},
+            custom_options: {
+                options: {
+                    src: ['./jasmine-tests/**/*.js']
+                }
+            }
         },
 
         // Unit tests.
