@@ -1,0 +1,22 @@
+{
+  "name": "banish-jasmine-iit-ddescribe",
+  "title": "Banish Jasmine Iit Ddescribe",
+  "description": "Raise an error if the Jasmine tests contain at least one iit or ddescribe block.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/dorzey/grunt-ii-dd",
+  "author": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dorzey/grunt-ii-dd.git"
+  },
+  "bugs": "https://github.com/dorzey/grunt-ii-dd/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/dorzey/grunt-ii-dd/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+  },
+  "keywords": []
+}
