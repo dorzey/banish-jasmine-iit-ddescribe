@@ -1,15 +1,39 @@
 {
   "name": "banish-jasmine-iit-ddescribe",
-  "version": "0.0.1",
+  "description": "Raise an error if the Jasmine tests contain at least one iit or ddescribe block.",
+  "version": "0.0.2",
+  "homepage": "https://github.com/dorzey/banish-jasmine-iit-ddescribe",
+  "author": {
+    "name": "Paul Doran",
+    "email": "dorzey@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url" : "git@github.com:dorzey/banish-jasmine-iit-ddescribe"
+  },
+  "bugs": {
+    "url": "https://github.com/dorzey/banish-jasmine-iit-ddescribe/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/dorzey/banish-jasmine-iit-ddescribe/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-nodeunit": "~0.1.2",
     "grunt": "~0.4.1"
-  }
+  },
+  "keywords": [
+    "gruntplugin, jasmine, grunt, test, bdd"
+  ]
 }
