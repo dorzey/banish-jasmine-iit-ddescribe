@@ -1,7 +1,10 @@
+/*jslint node: true */
 'use strict';
 
-var Grunt = require('grunt');
-var Path = require('path');
+var path = require('path');
+var banish = require('../tasks/lib/banish');
+
+var fixtures = path.join(__dirname, 'fixtures');
 
 /*
  ======== A Handy Little Nodeunit Reference ========
@@ -23,9 +26,45 @@ var Path = require('path');
  test.ifError(value)
  */
 
-exports.banish-jasmine-iit-ddescribe = {
-    setUp: function(done) {
-        // setup here if necessary
-        done();
-    }
+exports.test = {
+
+    should_pass: function(test) {
+        test.expect(1);
+        var filepath = [path.join(fixtures, 'jasmine_spec_without_itt_or_ddescribe.js')];
+        var expectedResult = { messages: [] };
+
+        var result = banish.checkForIitAndDdescribe(filepath); 
+        test.deepEqual(result, expectedResult);
+        test.done();
+    },
+
+    should_find_one_ddescribe: function(test) {
+        test.expect(1);
+        var filepath = [path.join(fixtures, 'jasmine_spec_with_ddescribe.js')];
+        var expectedResult = { messages: ["found 1 ddescribe"] };
+
+        var result = banish.checkForIitAndDdescribe(filepath); 
+        test.deepEqual(result, expectedResult);
+        test.done();
+    },
+
+    should_find_one_iit: function(test) {
+        test.expect(1);
+        var filepath = [path.join(fixtures, 'jasmine_spec_with_iit.js')];
+        var expectedResult = { messages: ["found 1 iit"] };
+
+        var result = banish.checkForIitAndDdescribe(filepath); 
+        test.deepEqual(result, expectedResult);
+        test.done();
+    },
+
+    should_find_multiple_errors: function(test) {
+        test.expect(1);
+        var filepath = [path.join(fixtures, 'jasmine_spec_with_multiple_failures.js')];
+        var expectedResult = { messages: ["found 2 iit", "found 1 ddescribe"] };
+
+        var result = banish.checkForIitAndDdescribe(filepath); 
+        test.deepEqual(result, expectedResult);
+        test.done();
+    },
 };

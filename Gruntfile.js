@@ -16,30 +16,21 @@ module.exports = function (grunt) {
             },
             src: {
                 options: {
-                    jshintrc: 'src/.jshintrc'
+                    jshintrc: 'tasks/.jshintrc'
                 },
-                src: ['src/**/*.js']
+                src: ['tasks/**/*.js']
             },
             test: {
                 options: {
                     jshintrc: 'test/.jshintrc'
                 },
-                src: ['test/**/*.js']
-            }
-        },
-
-        'banish-iit-ddescribe': {
-            default_options: {},
-            custom_options: {
-                options: {
-                    src: ['./jasmine-tests/**/*.js']
-                }
+                src: ['test/banish-jasmine-iit-ddescribe_test.js']
             }
         },
 
         // Unit tests.
         nodeunit: {
-            tests: ['test/*_test.js']
+            tests: ['test/banish-jasmine-iit-ddescribe_test.js']
         }
     });
 
@@ -50,13 +41,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
-    // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-    // plugin's task(s), then test the result.
-    grunt.registerTask('test', ['clean', 'banish-iit-ddescribe', 'nodeunit']);
+    grunt.registerTask('test', ['nodeunit']);
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'clean', 'test']);
 
 };
